@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+
+<h1 align = "center";>ADMIN PANEL<h1>
+
+
+
+
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">id</th>
+      <th scope="col">name</th>
+      <th scope="col">email</th>
+      <th scope="col">action</th>
+      <th>
+      <form class="form-inline" action="{% url 'search' %}" method="POST">
+        {% csrf_token %}
+        <input class="form-control mr-sm-2" name="username" type="search" placeholder="Search" aria-label="Search">
+        <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Search" >
+     </form>
+      </th>
+    </tr>
+  </thead>
+  <tbody>
+ {% for user in user%}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.email }}</td>
+      <td><a href ="{% url 'delete' user.id%}" type="button" class="btn btn-danger">Delete</a></td>
+      <td><a href ="{% url 'update' user.id%}" type="button" class="btn btn-danger">Update</a></td>
+      
+     
+    </tr>
+  </tbody>
+  {% endfor %}
+</table>
+
+<a href= "{% url 'add'%}" class="btn btn-primary">Add-user</a>
+<div>
+
+<a href= "{% url 'logout' %}" class="btn btn-danger">Logout</a>
+
+</div>
+
+
+
+
+{% endblock %}
